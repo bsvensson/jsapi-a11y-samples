@@ -1,0 +1,84 @@
+<html>
+<style>
+  calcite-list {
+    width: 500px;
+  }
+</style>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <script type="module" src=https://js.arcgis.com/calcite-components/2.8.0/calcite.esm.js></script>
+  <link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/2.8.0/calcite.css />
+</head>
+
+<body>
+  <h1>Testing ArcGIS Maps SDK for JavaScript</h1>
+
+  <div>Version being tested: 4.30</div>
+  <calcite-label>Version being tested: 4.30</calcite-label>
+
+  <h2>Map navigation</h2>
+
+  <calcite-list>
+    <calcite-list-item label="M1: basic 2D map interaction" description="Pan, zoom and other basic interactions. (using map components defaults)">
+      <calcite-link href="map1.html" slot="actions-end">2D</calcite-link>
+    </calcite-list-item>
+    <calcite-list-item label="M2: 3D map interaction" description="Pan, zoom and other basic interactions">
+      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/sample-code/intro-sceneview/live/" slot="actions-end">3D</calcite-link>
+    </calcite-list-item>
+    <calcite-list-item label="M3: navigation buttons" description="Using the zoom buttons, home, and 3D navigation">
+      <calcite-link href="map3.html" slot="actions-end">Navigation buttons</calcite-link>
+    </calcite-list-item>
+  </calcite-list>
+
+  <h2>Widgets and components testing</h2>
+
+  <calcite-list>
+    <calcite-list-item label="Basic popup" description="Click on a census tract (on the map) for more information">
+      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/sample-code/intro-popuptemplate/live/" slot="actions-end">Popup #1</calcite-link>
+    </calcite-list-item>
+    <calcite-list-item label="Popup with charts etc" description="Click on a county">
+      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/sample-code/popup-multipleelements/live/" slot="actions-end">Popup #2</calcite-link>
+    </calcite-list-item>
+    <calcite-list-item label="Directions" description="Get driving directions">
+      <calcite-link href="widget-directions.html" slot="actions-end">Directions</calcite-link>
+    </calcite-list-item>
+    <calcite-list-item label="Export map" description="The print widgets allows you to export the map to a PDF or other file formats">
+      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/sample-code/widgets-print/live/" slot="actions-end">Export map</calcite-link>
+    </calcite-list-item>
+    <calcite-list-item label="TableList" description="this widget blah blah">
+      <calcite-link href="widget-tablelist.html" slot="actions-end">TableList</calcite-link>
+    </calcite-list-item>
+  </calcite-list>
+
+  <h2>Coding components testing</h2>
+
+  <calcite-list>
+    <calcite-list-item label="the default one" description="Use F1 for inside help.">
+      <calcite-link href="coding-default.html" slot="actions-end">Link coming soon</calcite-link>
+    </calcite-list-item>
+    <calcite-list-item label="Arcade Editor" description="A code editor for creating 'arcade' expressions.">
+      <calcite-link href="coding-arcade.html" slot="actions-end">Link coming soon</calcite-link>
+    </calcite-list-item>
+  </calcite-list>
+
+  <h2>Documentation</h2>
+
+  <calcite-list>
+    <calcite-list-item label="Page 1">
+      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/" slot="actions-end">Home page</calcite-link>
+    </calcite-list-item>
+    <calcite-list-item label="One guide topic">
+      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/localization/" slot="actions-end">Localization</calcite-link>
+    </calcite-list-item>
+    <calcite-list-item label="API Reference overview">
+      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/api-reference/" slot="actions-end">API Reference</calcite-link>
+    </calcite-list-item>
+    <calcite-list-item label="API Reference example">
+      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Swipe.html" slot="actions-end">Swipe doc</calcite-link>
+    </calcite-list-item>
+  </calcite-list>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="">
+<title>TableList - no map - (ArcGIS Play)</title>
+
+<link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/css/main.css">
+
+<style>
+	#table-list {
+  width: 300px;
+}
+</style>
+
+<script src="https://js.arcgis.com/4.30"  ></script>
+
+</head>
+<body>
+	<div id="table-list"></div>
+  
+	<script>
+require(["esri/WebMap", "esri/widgets/TableList"], function (WebMap, TableList) {
+    "use strict";
+    
+    async function init() {
+        const webmap = new WebMap({
+            portalItem: {
+                id: "e5023dd519ae4261816de2cb7e3a80c3"
+            }
+        });
+        await webmap.loadAll();
+        const myTableList = new TableList({
+            container: "table-list",
+            dragEnabled: true,
+            headingLevel: 1,
+            uiStrings: { widgetLabel: "My list of tables" },
+            map: webmap,
+            listItemCreatedFunction: (event) => {
+                const { item } = event;
+                item.actionsSections = [
+                    [
+                        {
+                            title: "Say hello",
+                            icon: "text",
+                            id: "hello"
+                        },
+                        {
+                            title: "Information",
+                            icon: "information",
+                            id: "information"
+                        }
+                    ]
+                ];
+                item.panel = {
+                    content: `<p>You clicked the boxy icon for a table called ${item.title}. That's good enough for this test :)</p>`,
+                    icon: "maximize"
+                };
+            },
+            visibleElements: {
+                errors: true,
+                heading: true
+            }
+        });
+        myTableList.on("trigger-action", (event) => {
+            const id = event.action.id;
+            if (id === "hello") {
+                window.alert("hello");
+            }
+            else if (id === "information") {
+                window.alert("information");
+            }
+        });
+    }
+    init();
+		});
+	</script>
+</body>
+</html>

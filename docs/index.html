@@ -1,81 +1,121 @@
 <html>
-<style>
-  calcite-list {
-    width: 500px;
-  }
-</style>
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
   <script type="module" src=https://js.arcgis.com/calcite-components/2.8.0/calcite.esm.js></script>
   <link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/2.8.0/calcite.css />
+  <style>
+    calcite-card {
+      width: 240px;
+    }
+
+    @media (max-width: 800px) {
+      calcite-card {
+        width: calc(100% / 2 - .5rem);
+      }
+    }
+
+    @media (max-width: 400px) {
+      calcite-card {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
   <h1>Testing ArcGIS Maps SDK for JavaScript</h1>
 
-  <div>Version being tested: 4.30</div>
   <calcite-label>Version being tested: 4.30</calcite-label>
 
   <h2>Map navigation</h2>
 
-  <calcite-list>
-    <calcite-list-item label="M1: basic 2D map interaction" description="Pan, zoom and other basic interactions. (using map components defaults)">
-      <calcite-link href="map1.html" slot="actions-end">2D</calcite-link>
-    </calcite-list-item>
-    <calcite-list-item label="M2: 3D map interaction" description="Pan, zoom and other basic interactions">
-      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/sample-code/intro-sceneview/live/" slot="actions-end">3D</calcite-link>
-    </calcite-list-item>
-    <calcite-list-item label="M3: application with Calcite" description="See top national parks">
-      <calcite-link href="map-app.html" slot="actions-end">Navigation buttons</calcite-link>
-    </calcite-list-item>
-  </calcite-list>
+  <calcite-card-group label="label">
+    <calcite-card>
+      <calcite-link slot="title" href="map1.html">M1: basic 2D map interactions</calcite-link>
+      <span slot="subtitle">Pan, zoom and other basic interactions. (using map components)</span>
+      <calcite-chip slot="footer-start" icon="map"></calcite-chip>
+    </calcite-card>
+    <calcite-card>
+      <calcite-link slot="title" href="https://developers.arcgis.com/javascript/latest/sample-code/intro-sceneview/live/" icon-end="launch2">M2: 3D map interactions</calcite-link>
+      <span slot="subtitle">Pan, zoom and other basic interactions. (using map components)</span>
+      <calcite-chip slot="footer-start" icon="globe"></calcite-chip>
+    </calcite-card>
+    <calcite-card>
+      <calcite-link slot="title" href="map-app.html">M3: application with Calcite Components</calcite-link>
+      <span slot="subtitle">See top national parks</span>
+      <calcite-chip slot="footer-start" icon="map"></calcite-chip>
+      <calcite-chip slot="footer-end" icon="home"></calcite-chip>
+    </calcite-card>
+  </calcite-card-group>
 
   <h2>Widgets and components testing</h2>
 
-  <calcite-list>
-    <calcite-list-item label="Basic popup" description="Click on a census tract (on the map) for more information">
-      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/sample-code/intro-popuptemplate/live/" slot="actions-end">Popup #1</calcite-link>
-    </calcite-list-item>
-    <calcite-list-item label="Popup with charts etc" description="Click on a county">
-      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/sample-code/popup-multipleelements/live/" slot="actions-end">Popup #2</calcite-link>
-    </calcite-list-item>
-    <calcite-list-item label="Directions" description="Get driving directions">
-      <calcite-link href="widget-directions.html" slot="actions-end">Directions</calcite-link>
-    </calcite-list-item>
-    <calcite-list-item label="Export map" description="The print widgets allows you to export the map to a PDF or other file formats">
-      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/sample-code/widgets-print/live/" slot="actions-end">Export map</calcite-link>
-    </calcite-list-item>
-    <calcite-list-item label="TableList" description="this widget blah blah">
-      <calcite-link href="widget-tablelist.html" slot="actions-end">TableList</calcite-link>
-    </calcite-list-item>
-  </calcite-list>
+  <calcite-card-group>
+    <calcite-card>
+      <calcite-link slot="title" icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/sample-code/intro-popuptemplate/live/">Basic popup</calcite-link>
+      <span slot="subtitle">Click on a census tract (on the map) for more information. View the legend.</span>
+      <calcite-chip slot="footer-start" icon="map"></calcite-chip>
+      <calcite-chip slot="footer-end" icon="popup"></calcite-chip>
+      <calcite-chip slot="footer-end" icon="legend"></calcite-chip>
+    </calcite-card>
+    <calcite-card label=" etc" description="Click on a county">
+      <calcite-link slot="title" href="https://developers.arcgis.com/javascript/latest/sample-code/popup-multipleelements/live/" slot="actions-end">Popup with charts</calcite-link>
+      <span slot="subtitle">Click on a county. View the legend within the Expand widget.</span>
+      <calcite-chip slot="footer-start" icon="map"></calcite-chip>
+      <calcite-chip slot="footer-end" icon="popup"></calcite-chip>
+      <calcite-chip slot="footer-end" icon="expand"></calcite-chip>
+      <calcite-chip slot="footer-end" icon="legend"></calcite-chip>
+    </calcite-card>
+    <calcite-card>
+      <calcite-link slot="title" href="widget-directions.html" slot="actions-end">Directions</calcite-link>
+      <span slot="subtitle">Get driving directions by searching for places</span>
+      <calcite-chip slot="footer-start" icon="map"></calcite-chip>
+      <calcite-chip slot="footer-end" icon="driving-distance"></calcite-chip>
+    </calcite-card>
+    <calcite-card>
+      <calcite-link slot="title" icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/sample-code/widgets-print/live/" slot="actions-end">Export map</calcite-link>
+      <span slot="subtitle">The print widgets allows you to export the map to a PDF or other file formats</span>
+      <calcite-chip slot="footer-start" icon="map"></calcite-chip>
+      <calcite-chip slot="footer-end" icon="print"></calcite-chip>
+    </calcite-card>
+    <calcite-card>
+      <calcite-link slot="title" href="widget-tablelist.html" slot="actions-end">TableList</calcite-link>
+      <span slot="subtitle">Change order, access "actions"</span>
+      <calcite-chip slot="footer-start" icon="map"></calcite-chip>
+    </calcite-card>
+  </calcite-card-group>
 
   <h2>Coding components testing</h2>
 
-  <calcite-list>
-    <calcite-list-item label="Arcade Editor" description="A code editor for creating 'arcade' expressions. Use F1 for in-app help.">
-      <calcite-link href="coding-arcade.html" slot="actions-end">Arcade Editor</calcite-link>
-    </calcite-list-item>
-  </calcite-list>
+  <calcite-card-group>
+    <calcite-card>
+      <calcite-link href="coding-arcade.html" slot="title">Arcade Editor</calcite-link>
+      <span slot="subtitle">A code editor for creating 'arcade' expressions. Use F1 for in-app help.</span>
+    </calcite-card>
+  </calcite-card-group>
 
   <h2>Documentation</h2>
 
-  <calcite-list>
-    <calcite-list-item label="Page 1">
-      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/" slot="actions-end">Home page</calcite-link>
-    </calcite-list-item>
-    <calcite-list-item label="One guide topic">
-      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/localization/" slot="actions-end">Localization</calcite-link>
-    </calcite-list-item>
-    <calcite-list-item label="API Reference overview">
-      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/api-reference/" slot="actions-end">API Reference</calcite-link>
-    </calcite-list-item>
-    <calcite-list-item label="API Reference example">
-      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Swipe.html" slot="actions-end">Swipe doc</calcite-link>
-    </calcite-list-item>
-  </calcite-list>
+  <calcite-card-group>
+    <calcite-card>
+      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/" slot="title">Home page</calcite-link>
+      <span slot="subtitle">The initial/main page.</span>
+    </calcite-card>
+    <calcite-card>
+      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/localization/" slot="title">Localization</calcite-link>
+      <span slot="subtitle">A typical guide page</span>
+    </calcite-card>
+    <calcite-card label="API Reference overview">
+      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/api-reference/" slot="title">API Reference</calcite-link>
+      <span slot="subtitle">Overview of the API reference</span>
+    </calcite-card>
+    <calcite-card label="API Reference example">
+      <calcite-link icon-end="launch2" href="https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Swipe.html" slot="title">Swipe doc</calcite-link>
+      <span slot="subtitle">A typical API reference page</span>
+    </calcite-card>
+  </calcite-card-group>
 </body>
 
 </html>

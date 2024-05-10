@@ -1,0 +1,61 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>ArcGIS Maps SDK for JavaScript: Display a map using arcgis/map-components</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/dark/main.css">
+  <script src="https://js.arcgis.com/4.30/"></script>
+  <script type="module" src="https://js.arcgis.com/map-components/4.30/arcgis-map-components.esm.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/2.8.0/calcite.css" />
+  <script type="module" src="https://js.arcgis.com/calcite-components/2.8.0/calcite.esm.js"></script>
+
+  <style>
+    html,
+    body,
+    arcgis-map {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+
+</head>
+
+<body aria-describedby="map-loaded">
+  <calcite-shell content-behind>
+    <calcite-navigation slot="header" id="nav">
+      <calcite-navigation-logo slot="logo" heading="Map of Europe"></calcite-navigation-logo>
+    </calcite-navigation>
+    <calcite-panel>
+      <arcgis-map zoom="5" center="12.9763, 55.6133"> </arcgis-map>
+      <p id="map-loaded" aria-live="polite" class="sr-only"></p>
+      <p id="map-description" class="sr-only"></p>
+    </calcite-panel>
+  </calcite-shell>
+  <script>
+    document.querySelector("arcgis-map").addEventListener("arcgisViewReadyChange", (event) => {
+      // let a11y know when map has loaded
+      const mapLoadMsg = document.getElementById("map-loaded");
+      mapLoadMsg.innerText = `The map has loaded.`;
+      // tell a11y how many layers are in the map (or any other description)
+      const map = event.target.map;
+      const mapDescription = document.getElementById("map-description");
+      mapDescription.innerText = `This general map of Europe is centered on Copenhagen and it has ${map.allLayers.length} map layers.`;
+      document.getElementsByClassName("esri-view-surface")[0].setAttribute("aria-describedby", "map-description");
+    });
+  </script>
+</body>

@@ -73,9 +73,20 @@
       margin: 0 0.5rem;
     }
 
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+
   </style>
 
-  <body>
+  <body aria-describedby="map-loaded">
     <calcite-loader></calcite-loader>
     <calcite-shell content-behind hidden>
 
@@ -140,6 +151,8 @@
         </calcite-panel>
       </calcite-shell-panel>
       <div id="viewDiv"></div>
+      <p id="map-loaded" aria-live="polite" class="sr-only"></p>
+      <p id="map-description" class="sr-only"></p>
     </calcite-shell>
   </body>
   <script>
@@ -165,7 +178,10 @@
         container: "viewDiv",
         padding: {
           left: 45
-        }
+        },
+        popup: {
+          goToOverride: overrideGoToOptions
+        },
       });
 
       view.ui.move("zoom", "top-left");
@@ -177,7 +193,8 @@
 
       const bookmarks = new Bookmarks({
         view,
-        container: "bookmarks-container"
+        container: "bookmarks-container",
+        goToOverride: overrideGoToOptions
       });
 
       const layerList = new LayerList({
@@ -198,12 +215,31 @@
         container: "print-container"
       });
 
+      function isReduced() {
+        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      }
+
+      function overrideGoToOptions(view, goToParams) {
+
+      const { target, options } = goToParams;
+
+      return view.goTo(target, {
+        ...options,
+        animate: !isReduced(),
+      });
+
+      }
+
       map.when(() => {
         const { title, description, thumbnailUrl, avgRating } = map.portalItem;
         document.querySelector("#header-title").textContent = title;
         document.querySelector("#item-description").innerHTML = description;
         document.querySelector("#item-thumbnail").src = thumbnailUrl;
         document.querySelector("#item-rating").value = avgRating;
+        document.getElementById("map-loaded").innerText = `The ${title} map has loaded.`;
+        document.getElementById("map-description").innerText = "A map of Mexico's municipalities depicting educational attainment by average household size.";
+        const surfacesEls = [...document.getElementsByClassName("esri-view-surface")];
+        surfacesEls.forEach((surfaceEl) => surfaceEl.setAttribute("aria-describedby", "map-description"));
 
         let activeWidget;
 

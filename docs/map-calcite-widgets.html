@@ -36,11 +36,6 @@
       --calcite-label-margin-bottom: 0px;
     }
 
-    #header-title {
-      margin-left: 1rem;
-      margin-right: 1rem;
-    }
-
     #info-content {
       padding: 0.75rem;
     }
@@ -49,28 +44,12 @@
       margin-top: 0.25rem;
     }
 
-    #header {
-      display: flex;
-      padding: 0 1rem;
-      background-color: var(--calcite-color-foreground-1);
-    }
-
-    #header-controls {
-      display: flex;
-      margin-inline-start: auto;
-      align-self: center;
-    }
-
     .label-wrapper {
       display: flex;
       margin-inline: 1rem;
       padding: 0.5rem;
       border: 1px solid var(--calcite-color-border-1);
       cursor: pointer;
-    }
-
-    calcite-switch {
-      margin: 0 0.5rem;
     }
 
     .sr-only {
@@ -90,16 +69,9 @@
     <calcite-loader></calcite-loader>
     <calcite-shell content-behind hidden>
 
-      <!--  Header slot  -->
-      <div slot="header" id="header">
-
-        <!-- Title -->
-        <h2 id="header-title">
-          <!-- Dynamically populated -->
-        </h2>
-
-        <!-- Controls -->
-        <div id="header-controls">
+      <calcite-navigation slot="header">
+        <calcite-navigation-logo id="header-title" slot="logo"></calcite-navigation-logo>
+        <div slot="content-end">
           <!-- Dark Mode Switch -->
           <calcite-label layout="inline" class="label-wrapper">
             Dark mode: Off
@@ -107,7 +79,7 @@
             On
           </calcite-label>
         </div>
-      </div>
+      </calcite-navigation>
 
       <calcite-shell-panel slot="panel-start" display-mode="float">
         <calcite-action-bar slot="action-bar">
@@ -232,7 +204,7 @@
 
       map.when(() => {
         const { title, description, thumbnailUrl, avgRating } = map.portalItem;
-        document.querySelector("#header-title").textContent = title;
+        document.querySelector("#header-title").heading = title;
         document.querySelector("#item-description").innerHTML = description;
         document.querySelector("#item-thumbnail").src = thumbnailUrl;
         document.querySelector("#item-rating").value = avgRating;

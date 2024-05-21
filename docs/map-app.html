@@ -22,6 +22,7 @@
       .calcite-tutorial {
         --calcite-color-brand: #039851;
         --calcite-color-brand-hover: #008d52;
+        --calcite-ui-focus-color: var(--calcite-color-brand);
       }
 
       .calcite-tutorial calcite-chip {
@@ -65,7 +66,7 @@
             </calcite-label>
           </calcite-block>
           <calcite-block heading="Results" id="result-block">
-            <calcite-list id="result-list"></calcite-list>
+            <calcite-list id="result-list" selection-mode="single-persist" selection-appearance="border"></calcite-list>
           </calcite-block>
         </calcite-panel>
       </calcite-shell-panel>
@@ -83,8 +84,9 @@
       "esri/Basemap",
       "esri/rest/support/TopFeaturesQuery",
       "esri/rest/support/TopFilter",
-      "esri/widgets/Home"
-    ], (Map, MapView, FeatureLayer, WebStyleSymbol, Basemap, TopFeaturesQuery, TopFilter, Home) =>
+      "esri/widgets/Home",
+      "esri/core/reactiveUtils"
+    ], (Map, MapView, FeatureLayer, WebStyleSymbol, Basemap, TopFeaturesQuery, TopFilter, Home, reactiveUtils) =>
       (async () => {
         const layer = new FeatureLayer({
           url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/US_National_Parks_Annual_Visitation/FeatureServer/0",
@@ -102,7 +104,10 @@
           container: "viewDiv",
           map: map,
           center: [-120, 45],
-          zoom: 3
+          zoom: 3,
+          popup: {
+            goToOverride: overrideGoToOptions
+          },
         });
 
         let homeWidget = new Home({
@@ -218,7 +223,10 @@
             item.label = attributes.Park;
             item.value = index;
             item.description = `${attributes[year].toLocaleString()} visitors`;
-            item.addEventListener("click", () => resultClickHandler(result, index));
+            item.addEventListener("calciteListItemSelect", () => {
+              resultClickHandler(result, index)
+              item.selected = true;
+            });
             item.appendChild(chip);
             document.getElementById("result-list").appendChild(item);
           });
@@ -233,12 +241,38 @@
         function resultClickHandler(result, index) {
           const popup = graphics && graphics[parseInt(index, 10)];
           if (popup) {
-            view.popup.open({
+            view.openPopup({
               features: [popup],
               location: result.geometry
             });
             view.goTo({ center: [result.geometry.longitude, result.geometry.latitude], zoom: 4 }, { duration: 400 });
+
+            // Consistent focus between the popup and results list
+            async function consistentFocus() {
+              await view.when();
+              view.popup.focus();
+              reactiveUtils.watch(() => view.popup.active, (active) => {
+                if (!active) {
+                  document.querySelector("calcite-list-item[selected]").setFocus();
+                }
+              });
+            }
+            consistentFocus();
           }
+        }
+
+        function isReduced() {
+          return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        }
+
+        function overrideGoToOptions(view, goToParams) {
+
+          const { target, options } = goToParams;
+
+          return view.goTo(target, {
+            ...options,
+            animate: !isReduced(),
+          });
         }
 
         function determineResetActionState() {

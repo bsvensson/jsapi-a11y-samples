@@ -1,0 +1,31 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Sketch component | ArcGIS Maps SDK for JavaScript 4.30</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.30/"></script>
+  <script type="module" src="https://js.arcgis.com/map-components/4.30/arcgis-map-components.esm.js"></script>
+</head>
+
+<style>
+  html,
+  body,
+  #mapEl {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+</style>
+
+<body>
+  <arcgis-map id="mapEl" zoom="5" center="90, 45" basemap="topo-vector">
+    <arcgis-zoom position="top-left"></arcgis-zoom>
+    <arcgis-sketch id="sketchEl" position="top-right" creation-mode="update" layout="horizontal" layer="GraphicsLayer"></arcgis-sketch>
+  </arcgis-map>
+</body>
+
+</html>
